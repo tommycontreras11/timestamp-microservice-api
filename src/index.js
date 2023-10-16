@@ -26,7 +26,7 @@ app.get('/api/:date_string', (req, res) => {
         } 
     }
 
-    if(date.includes("-") == true) 
+    if(date_string.includes("-") == true) 
     {
         simpleDateFormat = new Date(date_string).toUTCString();
         if(simpleDateFormat != 'Invalid Date') 
