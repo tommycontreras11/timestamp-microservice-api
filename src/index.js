@@ -11,13 +11,12 @@ app.get('/api/', (req, res) => {
 })
 
 app.get('/api/:date_string', (req, res) => {
-    let date = req.params.date_string;
+    let date_string = req.params.date_string;
     let simpleDateFormat = "";
 
-    if(date.includes("-") == false) 
+    if(date_string.includes("-") == false) 
     {
-        simpleDateFormat = new Date(Number(date));
-        
+        simpleDateFormat = new Date(Number(date_string));
         if(simpleDateFormat != 'Invalid Date') 
         {
             res.json({
@@ -29,11 +28,11 @@ app.get('/api/:date_string', (req, res) => {
 
     if(date.includes("-") == true) 
     {
-        simpleDateFormat = new Date(date).toUTCString();
+        simpleDateFormat = new Date(date_string).toUTCString();
         if(simpleDateFormat != 'Invalid Date') 
         {
             res.json({
-                'unix': new Date(date).getTime(),
+                'unix': new Date(date_string).getTime(),
                 'utc': simpleDateFormat
             });
         } 
