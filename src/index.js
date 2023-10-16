@@ -10,7 +10,7 @@ app.get('/api/', (req, res) => {
     });
 })
 
-app.get('/api/:date_string?', (req, res) => {
+app.get('/api/:date_string', (req, res) => {
     let date = req.params.date_string;
     let simpleDateFormat = "";
 
