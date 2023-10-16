@@ -10,40 +10,27 @@ app.get('/api/', (req, res) => {
     });
 })
 
-app.get('/api/:date_string', (req, res) => {
-    let date_string = req.params.date_string;
-    let simpleDateFormat = "";
+const isInvalidDate = (date) => date.toUTCString() === "Invalid Date";
 
-    if(date_string.includes("-") == false) 
+app.get('/api/:date', (req, res) => {
+    let date = new Date(req.params.date);
+
+    if(isInvalidDate(date)) 
     {
-        simpleDateFormat = new Date(+date_string);
-        if(simpleDateFormat != 'Invalid Date') 
-        {
-            res.json({
-                'unix': simpleDateFormat.getTime(),
-                'utc': simpleDateFormat.toUTCString()
-            });
-        } 
+        date = new Date(+req.params.date);
     }
 
-    if(date_string.includes("-") == true) 
+    if(isInvalidDate(date)) 
     {
-        simpleDateFormat = new Date(date_string).toUTCString();
-        if(simpleDateFormat != 'Invalid Date') 
-        {
-            res.json({
-                'unix': new Date(date_string).getTime(),
-                'utc': simpleDateFormat
-            });
-        } 
+        res.json({ error: "Invalid Date" });
+        return;
     }
 
-    if(simpleDateFormat == 'Invalid Date') 
-    {
-        res.json({
-            'error': 'Invalid Date'
-        });
-    }
+    res.json({
+        unix: date.getTime(),
+        utc: date.toUTCString()
+    });
+
 })
 
 app.listen(3000);
