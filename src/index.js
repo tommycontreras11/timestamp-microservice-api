@@ -16,7 +16,7 @@ app.get('/api/:date_string', (req, res) => {
 
     if(date_string.includes("-") == false) 
     {
-        simpleDateFormat = new Date(Number(date_string));
+        simpleDateFormat = new Date(+date_string);
         if(simpleDateFormat != 'Invalid Date') 
         {
             res.json({
